@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://qlid1p5ukroy"]
+
+[ext_resource type="Script" path="res://core/cameras/ThirdPersonCamera.cs" id="1_j6nhx"]
+
+[node name="third_person_camera" type="Node3D" node_paths=PackedStringArray("Camera")]
+script = ExtResource("1_j6nhx")
+_heightOffset = 1.75
+Camera = NodePath("horizontal_axis/vertical_axis/camera_3d")
+
+[node name="horizontal_axis" type="Node3D" parent="."]
+
+[node name="vertical_axis" type="SpringArm3D" parent="horizontal_axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="camera_3d" type="Camera3D" parent="horizontal_axis/vertical_axis"]
+keep_aspect = 0

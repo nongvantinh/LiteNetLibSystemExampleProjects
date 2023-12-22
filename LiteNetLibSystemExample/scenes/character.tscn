@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://31bjknd07pd4"]
+
+[ext_resource type="Script" path="res://core/CharacterBody3DMoveable.cs" id="1_bn1ah"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_r7lbr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r2s6r"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_c5vaf"]
+material = SubResource("StandardMaterial3D_r2s6r")
+size = Vector3(0.68, 0.3, 0.5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qn0w4"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("_head")]
+script = ExtResource("1_bn1ah")
+_head = NodePath("mesh/head")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="MuzzlePosition" type="Node3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.732, -0.510347)
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_r7lbr")
+
+[node name="Glass" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.362522, -0.3)
+mesh = SubResource("BoxMesh_c5vaf")
+skeleton = NodePath("../..")
+
+[node name="head" type="Node3D" parent="mesh"]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0.508732, -0.540178)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_qn0w4")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>9</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="K4os.Compression.LZ4" Version="1.3.5" />
+      <PackageReference Include="LiteNetLib" Version="1.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="RefMagic">
+        <HintPath>ILPart\RefMagic.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwoyb5o64dusr"]
+
+[ext_resource type="Texture2D" uid="uid://bqbmt4k85ngaw" path="res://sprites/background-joystick.png" id="1_anwax"]
+[ext_resource type="Texture2D" uid="uid://uh83dr2aawne" path="res://sprites/joystick.png" id="2_hgqf5"]
+[ext_resource type="Script" path="res://core/VirtualJoystick.cs" id="2_p5erc"]
+
+[node name="virtual_joystick" type="TextureRect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_anwax")
+expand_mode = 1
+script = ExtResource("2_p5erc")
+
+[node name="joystick_ring" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 125.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_hgqf5")
+expand_mode = 1

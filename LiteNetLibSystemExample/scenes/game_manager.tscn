@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://ypl4ga5uinjc"]
+
+[ext_resource type="Script" path="res://core/GameManager.cs" id="1_l4r81"]
+[ext_resource type="PackedScene" uid="uid://clucg5dhxrxrp" path="res://scenes/gui/head_up_display.tscn" id="3_80hvr"]
+[ext_resource type="PackedScene" uid="uid://31bjknd07pd4" path="res://scenes/character.tscn" id="3_sdsqm"]
+[ext_resource type="PackedScene" uid="uid://qlid1p5ukroy" path="res://scenes/cameras/third_person_view_camera.tscn" id="5_421aa"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_l4r81")
+IsServer = true
+_thirdPersonCameraScene = ExtResource("5_421aa")
+CharacterScene = ExtResource("3_sdsqm")
+
+[node name="HeadUpDisplay" parent="." instance=ExtResource("3_80hvr")]
+
+[editable path="HeadUpDisplay"]

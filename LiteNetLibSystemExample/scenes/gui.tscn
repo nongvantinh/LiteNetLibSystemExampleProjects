@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1repp7mm80f5"]
+
+[ext_resource type="PackedScene" uid="uid://dwoyb5o64dusr" path="res://scenes/virtual_joystick.tscn" id="1_ajvdw"]
+[ext_resource type="Script" path="res://core/GUIManager.cs" id="1_mtn3u"]
+
+[node name="GUIManager" type="MarginContainer" node_paths=PackedStringArray("MovementJoystick", "SkillZeroJoystick", "SkillOneJoystick", "SkillTwoJoystick", "SkillThreeJoystick")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_mtn3u")
+MovementJoystick = NodePath("MobileLayout/FreeObjects/movement_joystick")
+SkillZeroJoystick = NodePath("")
+SkillOneJoystick = NodePath("")
+SkillTwoJoystick = NodePath("")
+SkillThreeJoystick = NodePath("")
+
+[node name="MobileLayout" type="Control" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="FreeObjects" type="Control" parent="MobileLayout"]
+layout_mode = 2
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="movement_joystick" parent="MobileLayout/FreeObjects" instance=ExtResource("1_ajvdw")]
+layout_mode = 1
+offset_left = -783.0
+offset_top = -2.0
+offset_right = -383.0
+offset_bottom = 398.0

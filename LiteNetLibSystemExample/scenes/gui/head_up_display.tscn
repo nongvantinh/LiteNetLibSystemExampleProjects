@@ -1,0 +1,538 @@
+[gd_scene load_steps=10 format=3 uid="uid://clucg5dhxrxrp"]
+
+[ext_resource type="Script" path="res://core/gui/HUDSettings.cs" id="1_c62e3"]
+[ext_resource type="Theme" uid="uid://wvufdq6bdwu1" path="res://presets/default_theme.tres" id="1_h0elw"]
+[ext_resource type="Script" path="res://core/GUIManager.cs" id="2_2ei4r"]
+[ext_resource type="Texture2D" uid="uid://e5jeuorlgxk1" path="res://icon.svg" id="3_x2mqb"]
+[ext_resource type="Texture2D" uid="uid://m3hokjgqvom1" path="res://sprites/lifebar_bg.png" id="4_gr3e5"]
+[ext_resource type="Texture2D" uid="uid://bti0cnfjfbe76" path="res://sprites/lifebar_fill.png" id="5_075gk"]
+[ext_resource type="PackedScene" uid="uid://dwoyb5o64dusr" path="res://scenes/virtual_joystick.tscn" id="6_kvaxu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvbdh"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.501961, 1, 0.25098, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dyby4"]
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.25, 0.38, 0.8, 0.5)
+
+[node name="HeadUpDisplay" type="Control" node_paths=PackedStringArray("_windowBaseSizeButton", "_windowStretchModeButton", "_windowStretchAspectButton", "_scaleFactorSlider", "_scaleFactorValue", "_maxAspectRatioButton", "_guiMarginSlider", "_guiMarginValue", "_border", "_displaySettings", "_arc", "_openSettingsButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_h0elw")
+script = ExtResource("1_c62e3")
+_windowBaseSizeButton = NodePath("Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowBaseSize/OptionButton")
+_windowStretchModeButton = NodePath("Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowStretchMode/OptionButton")
+_windowStretchAspectButton = NodePath("Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowStretchAspect/OptionButton")
+_scaleFactorSlider = NodePath("Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowScaleFactor/HSlider")
+_scaleFactorValue = NodePath("Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowScaleFactor/Value")
+_maxAspectRatioButton = NodePath("Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/GUIMaxAspectRatio/OptionButton")
+_guiMarginSlider = NodePath("Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/GUIMargin/HSlider")
+_guiMarginValue = NodePath("Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/GUIMargin/Value")
+_border = NodePath("Border")
+_displaySettings = NodePath("Border/AspectRatioContainer/DisplaySettings")
+_arc = NodePath("Border/AspectRatioContainer")
+_openSettingsButton = NodePath("Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top/Right/OpenSettings")
+
+[node name="OuterSideLabel" type="Label" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.627451)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 165.0
+offset_bottom = 60.0
+text = "Outer Side Label
+(ignores all margins)"
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_custom_anchors = false
+
+[node name="Border" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vvbdh")
+
+[node name="DebugText" type="RichTextLabel" parent="Border"]
+modulate = Color(0.666667, 1, 0.501961, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+text = "Inner Side Label
+(ignores GUI Max Aspect Ratio)"
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_custom_anchors = false
+
+[node name="InnerSideLabel2" type="Label" parent="Border"]
+modulate = Color(0.666667, 1, 0.501961, 1)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -60.0
+offset_right = 246.0
+offset_bottom = -8.0
+grow_vertical = 0
+text = "Inner Side Label
+(ignores GUI Max Aspect Ratio)"
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_custom_anchors = false
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Border"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+ratio = 1.78
+
+[node name="DisplaySettings" type="Panel" parent="Border/AspectRatioContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dyby4")
+
+[node name="TopLeft" type="ColorRect" parent="Border/AspectRatioContainer/DisplaySettings"]
+layout_mode = 0
+color = Color(1, 1, 1, 0.25098)
+
+[node name="TopRight" type="ColorRect" parent="Border/AspectRatioContainer/DisplaySettings"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+color = Color(1, 1, 1, 0.25098)
+
+[node name="BottomLeft" type="ColorRect" parent="Border/AspectRatioContainer/DisplaySettings"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+color = Color(1, 1, 1, 0.25098)
+
+[node name="BottomRight" type="ColorRect" parent="Border/AspectRatioContainer/DisplaySettings"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(1, 1, 1, 0.25098)
+
+[node name="CenterContainer" type="CenterContainer" parent="Border/AspectRatioContainer/DisplaySettings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options" type="VBoxContainer" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.87, 0.62, 1)
+theme_override_font_sizes/font_size = 24
+text = "Options"
+horizontal_alignment = 1
+
+[node name="WindowBaseSize" type="HBoxContainer" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowBaseSize"]
+layout_mode = 2
+text = "Window Base Size"
+
+[node name="OptionButton" type="OptionButton" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowBaseSize"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WindowStretchMode" type="HBoxContainer" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowStretchMode"]
+layout_mode = 2
+text = "Window Stretch Mode"
+
+[node name="OptionButton" type="OptionButton" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowStretchMode"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 1
+popup/item_0/text = "Disabled"
+popup/item_0/id = 0
+popup/item_1/text = "Canvas Items (2D)"
+popup/item_1/id = 1
+popup/item_2/text = "Viewport"
+popup/item_2/id = 2
+
+[node name="WindowStretchAspect" type="HBoxContainer" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowStretchAspect"]
+layout_mode = 2
+text = "Window Stretch Aspect"
+
+[node name="OptionButton" type="OptionButton" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowStretchAspect"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 5
+selected = 4
+popup/item_0/text = "Ignore"
+popup/item_0/id = 0
+popup/item_1/text = "Keep"
+popup/item_1/id = 1
+popup/item_2/text = "Keep Width"
+popup/item_2/id = 2
+popup/item_3/text = "Keep Height"
+popup/item_3/id = 3
+popup/item_4/text = "Expand"
+popup/item_4/id = 4
+
+[node name="WindowScaleFactor" type="HBoxContainer" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowScaleFactor"]
+layout_mode = 2
+text = "Window Scale Factor"
+
+[node name="HSlider" type="HSlider" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowScaleFactor"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 100.0
+min_value = 0.1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/WindowScaleFactor"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100%"
+
+[node name="HSeparator" type="HSeparator" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options"]
+layout_mode = 2
+
+[node name="GUIMaxAspectRatio" type="HBoxContainer" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/GUIMaxAspectRatio"]
+layout_mode = 2
+text = "GUI Max Aspect Ratio"
+
+[node name="OptionButton" type="OptionButton" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/GUIMaxAspectRatio"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 7
+selected = 0
+popup/item_0/text = "Fit to Window"
+popup/item_0/id = 0
+popup/item_1/text = "5:4"
+popup/item_1/id = 1
+popup/item_2/text = "4:3"
+popup/item_2/id = 2
+popup/item_3/text = "3:2"
+popup/item_3/id = 3
+popup/item_4/text = "16:10"
+popup/item_4/id = 4
+popup/item_5/text = "16:9"
+popup/item_5/id = 5
+popup/item_6/text = "21:9"
+popup/item_6/id = 6
+
+[node name="GUIMargin" type="HBoxContainer" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/GUIMargin"]
+layout_mode = 2
+text = "GUI Margin"
+
+[node name="HSlider" type="HSlider" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/GUIMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 100.0
+max_value = 50.0
+
+[node name="Value" type="Label" parent="Border/AspectRatioContainer/DisplaySettings/CenterContainer/Options/GUIMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="GUIManager" type="MarginContainer" parent="Border/AspectRatioContainer" node_paths=PackedStringArray("DebugText", "MovementJoystick", "SwitchCameraModeBtn")]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_2ei4r")
+DebugText = NodePath("../../DebugText")
+MovementJoystick = NodePath("MobileLayout/FreeObjects/movement_joystick")
+SwitchCameraModeBtn = NodePath("")
+
+[node name="MobileLayout" type="Control" parent="Border/AspectRatioContainer/GUIManager"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Border/AspectRatioContainer/GUIManager/MobileLayout"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Top" type="HBoxContainer" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Left" type="VBoxContainer" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Right" type="VBoxContainer" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="OpenSettings" type="TextureButton" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top/Right"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = ExtResource("3_x2mqb")
+stretch_mode = 0
+
+[node name="Top2" type="HBoxContainer" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Currency" type="VBoxContainer" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Money" type="HBoxContainer" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/Currency"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/Currency/Money"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_x2mqb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/Currency/Money"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "1.000.000.000"
+
+[node name="Money2" type="HBoxContainer" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/Currency"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/Currency/Money2"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_x2mqb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/Currency/Money2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "1.000.000.000"
+
+[node name="PetStats" type="VBoxContainer" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/PetStats"]
+layout_mode = 2
+mouse_filter = 2
+value = 70.0
+texture_under = ExtResource("4_gr3e5")
+texture_progress = ExtResource("5_075gk")
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/PetStats/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "70/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/PetStats"]
+layout_mode = 2
+mouse_filter = 2
+value = 30.0
+texture_under = ExtResource("4_gr3e5")
+texture_progress = ExtResource("5_075gk")
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top2/PetStats/TextureProgressBar2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "30/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FreeObjects" type="Control" parent="Border/AspectRatioContainer/GUIManager/MobileLayout"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="movement_joystick" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/FreeObjects" instance=ExtResource("6_kvaxu")]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 157.0
+offset_top = -529.674
+offset_right = 557.0
+offset_bottom = -129.674
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="DesktopLayout" type="Control" parent="Border/AspectRatioContainer/GUIManager"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Top" type="HBoxContainer" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Currency" type="VBoxContainer" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Money" type="HBoxContainer" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/Currency"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/Currency/Money"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_x2mqb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/Currency/Money"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "1.000.000.000"
+
+[node name="Money2" type="HBoxContainer" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/Currency"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/Currency/Money2"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_x2mqb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/Currency/Money2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "1.000.000.000"
+
+[node name="PetStats" type="VBoxContainer" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/PetStats"]
+layout_mode = 2
+mouse_filter = 2
+value = 70.0
+texture_under = ExtResource("4_gr3e5")
+texture_progress = ExtResource("5_075gk")
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/PetStats/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "70/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/PetStats"]
+layout_mode = 2
+mouse_filter = 2
+value = 30.0
+texture_under = ExtResource("4_gr3e5")
+texture_progress = ExtResource("5_075gk")
+
+[node name="Label" type="Label" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout/Top/PetStats/TextureProgressBar2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "30/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FreeObjects" type="Control" parent="Border/AspectRatioContainer/GUIManager/DesktopLayout"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
