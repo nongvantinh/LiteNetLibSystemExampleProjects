@@ -22,22 +22,12 @@ public enum SupportedOS
 public partial class GameManager : Node
 {
     public static GameManager Instance { get; private set; }
-
     public readonly SupportedOS CurrentOS = Enum.Parse<SupportedOS>(OS.GetName());
-
     public static Node3D World { get; set; }
-
     public static float Gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     public static bool IsPlaying = true;
     [Export] public bool IsServer = false;
     [Export] public string ServerIPAddress = GetLocalIPAddress();
-
-
-    [Export]
-    public PackedScene _thirdPersonCameraScene;
-
-    [Export] public PackedScene CharacterScene;
-
 
     public GameManager()
     {

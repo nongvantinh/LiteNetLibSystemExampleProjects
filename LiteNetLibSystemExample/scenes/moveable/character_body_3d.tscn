@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://basp4tevle3ve"]
+
+[ext_resource type="Script" path="res://core/CharacterBody3DMoveable.cs" id="1_77a7e"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cxtg3"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_85rum"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_77a7e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_cxtg3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_85rum")
+skeleton = NodePath("")

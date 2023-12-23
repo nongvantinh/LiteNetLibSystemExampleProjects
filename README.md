@@ -1,8 +1,13 @@
 This project is meant to provide a working version of using `LiteNetLibSystem` with Godot Engine.
 
+
+The client prediction still doesn't work well due to Godot's `MoveAndSlide` method not accepting the parameter `delta`. There's an ongoing discussion about bringing this option back in the engine [here](https://github.com/godotengine/godot/pull/84665), but the timeline is uncertain.
+
+Godot 4.2 currently doesn't support simulating physics multiple times at once either. It's unclear when this option will be introduced, but there is a proposal for it: [Add ability to simulate physics manually/multiple times at once](https://github.com/godotengine/godot-proposals/issues/2821).
+
 ## Prerequisites
-- Godot 4.2.stable.mono
-- .NET SDK 8
+- [Godot 4.2.stable.mono](https://github.com/godotengine/godot/releases/tag/4.2-stable)
+- [.NET SDK 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
 ## Project Usage
 

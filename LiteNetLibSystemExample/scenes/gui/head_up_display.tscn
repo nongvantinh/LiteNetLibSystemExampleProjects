@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://clucg5dhxrxrp"]
+[gd_scene load_steps=12 format=3 uid="uid://clucg5dhxrxrp"]
 
 [ext_resource type="Script" path="res://core/gui/HUDSettings.cs" id="1_c62e3"]
 [ext_resource type="Theme" uid="uid://wvufdq6bdwu1" path="res://presets/default_theme.tres" id="1_h0elw"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://m3hokjgqvom1" path="res://sprites/lifebar_bg.png" id="4_gr3e5"]
 [ext_resource type="Texture2D" uid="uid://bti0cnfjfbe76" path="res://sprites/lifebar_fill.png" id="5_075gk"]
 [ext_resource type="PackedScene" uid="uid://dwoyb5o64dusr" path="res://scenes/virtual_joystick.tscn" id="6_kvaxu"]
+[ext_resource type="PackedScene" uid="uid://uedyd40fno4c" path="res://scenes/gui/skill.tscn" id="7_tngxn"]
+[ext_resource type="Texture2D" uid="uid://clqdxv16jidxf" path="res://sprites/switch_camera.png" id="9_m0ey6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvbdh"]
 draw_center = false
@@ -287,13 +289,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "0"
 
-[node name="GUIManager" type="MarginContainer" parent="Border/AspectRatioContainer" node_paths=PackedStringArray("DebugText", "MovementJoystick", "SwitchCameraModeBtn")]
+[node name="GUIManager" type="MarginContainer" parent="Border/AspectRatioContainer" node_paths=PackedStringArray("DebugText", "MovementJoystick", "SkillZeroJoystick", "SkillOneJoystick", "SkillTwoJoystick", "SkillThreeJoystick", "SwitchCameraModeBtn")]
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("2_2ei4r")
 DebugText = NodePath("../../DebugText")
 MovementJoystick = NodePath("MobileLayout/FreeObjects/movement_joystick")
-SwitchCameraModeBtn = NodePath("")
+SkillZeroJoystick = NodePath("MobileLayout/FreeObjects/skill_zero")
+SkillOneJoystick = NodePath("MobileLayout/FreeObjects/skill_one")
+SkillTwoJoystick = NodePath("MobileLayout/FreeObjects/skill_two")
+SkillThreeJoystick = NodePath("MobileLayout/FreeObjects/skill_three")
+SwitchCameraModeBtn = NodePath("MobileLayout/FreeObjects/SwitchCameraMode")
 
 [node name="MobileLayout" type="Control" parent="Border/AspectRatioContainer/GUIManager"]
 layout_mode = 2
@@ -434,6 +440,79 @@ offset_right = 557.0
 offset_bottom = -129.674
 grow_horizontal = 1
 grow_vertical = 0
+
+[node name="skill_zero" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/FreeObjects" instance=ExtResource("7_tngxn")]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -317.0
+offset_top = -283.0
+offset_right = -117.0
+offset_bottom = -83.0
+grow_horizontal = 0
+grow_vertical = 0
+Type = 0
+
+[node name="skill_one" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/FreeObjects" instance=ExtResource("7_tngxn")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -522.0
+offset_top = -212.0
+offset_right = -372.0
+offset_bottom = -62.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="skill_two" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/FreeObjects" instance=ExtResource("7_tngxn")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -492.0
+offset_top = -417.0
+offset_right = -342.0
+offset_bottom = -267.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="skill_three" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/FreeObjects" instance=ExtResource("7_tngxn")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -274.0
+offset_top = -499.0
+offset_right = -124.0
+offset_bottom = -349.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SwitchCameraMode" type="TextureButton" parent="Border/AspectRatioContainer/GUIManager/MobileLayout/FreeObjects"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -136.0
+offset_top = -677.674
+offset_right = -40.0
+offset_bottom = -581.674
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("9_m0ey6")
 
 [node name="DesktopLayout" type="Control" parent="Border/AspectRatioContainer/GUIManager"]
 visible = false

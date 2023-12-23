@@ -2,15 +2,10 @@ using Godot;
 
 public partial class FirstPersonCamera : BaseCamera
 {
-    [Export]
-    private float _smoothSpeed = 6.25f;
-    [Export]
-    private float _sensitivity = 0.002f;
-    [Export]
-    private float _cameraMinVertical = -55; // -55 recommended
-    [Export]
-    private float _cameraMaxVertical = 75; // 75 recommended
-
+    [Export] private float _smoothSpeed = 6.25f;
+    [Export] private float _sensitivity = 0.002f;
+    [Export] private float _cameraMinVertical = -55; // -55 recommended
+    [Export] private float _cameraMaxVertical = 75; // 75 recommended
     private Node3D _horizontalAxis = null;
     private Node3D _verticalAxis = null;
 
@@ -28,7 +23,6 @@ public partial class FirstPersonCamera : BaseCamera
         Update(delta);
     }
 
-
     private void Update(double delta)
     {
         if (Target == null)
@@ -36,11 +30,7 @@ public partial class FirstPersonCamera : BaseCamera
             return;
         }
 
-        if (null != Pivot)
-        {
-            GlobalPosition = Pivot.GlobalPosition;
-        }
-
+        GlobalPosition = Pivot.GlobalPosition;
         float horizontalAxis = (float)Mathf.Lerp(_horizontalAxis.Rotation.Y, CameraRotation.X, delta * _smoothSpeed);
         float verticalAxis = (float)Mathf.Lerp(_verticalAxis.Rotation.X, CameraRotation.Y, delta * _smoothSpeed);
 

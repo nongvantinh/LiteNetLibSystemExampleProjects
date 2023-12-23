@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://blmr6y0xhw81n"]
+
+[ext_resource type="Script" path="res://core/cameras/FirstPersonCamera.cs" id="1_qc5xk"]
+
+[node name="first_person_camera" type="Node3D" node_paths=PackedStringArray("CameraInstance")]
+script = ExtResource("1_qc5xk")
+CameraInstance = NodePath("horizontal_axis/vertical_axis/camera_3d")
+
+[node name="horizontal_axis" type="Node3D" parent="."]
+
+[node name="vertical_axis" type="Node3D" parent="horizontal_axis"]
+
+[node name="camera_3d" type="Camera3D" parent="horizontal_axis/vertical_axis"]
+keep_aspect = 0

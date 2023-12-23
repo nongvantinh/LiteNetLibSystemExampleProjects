@@ -1,13 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://ypl4ga5uinjc"]
+[gd_scene load_steps=8 format=3 uid="uid://ypl4ga5uinjc"]
 
 [ext_resource type="Script" path="res://core/GameManager.cs" id="1_l4r81"]
+[ext_resource type="PackedScene" uid="uid://dk6hs4bmcfkri" path="res://scenes/cameras/rts_camera.tscn" id="3_5cl1j"]
 [ext_resource type="PackedScene" uid="uid://clucg5dhxrxrp" path="res://scenes/gui/head_up_display.tscn" id="3_80hvr"]
 [ext_resource type="PackedScene" uid="uid://31bjknd07pd4" path="res://scenes/character.tscn" id="3_sdsqm"]
+[ext_resource type="Script" path="res://core/SceneManager.cs" id="4_3mcca"]
+[ext_resource type="PackedScene" uid="uid://blmr6y0xhw81n" path="res://scenes/cameras/first_person_view_camera.tscn" id="4_5kn8t"]
 [ext_resource type="PackedScene" uid="uid://qlid1p5ukroy" path="res://scenes/cameras/third_person_view_camera.tscn" id="5_421aa"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_l4r81")
 IsServer = true
+
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource("4_3mcca")
+_rtsCameraScene = ExtResource("3_5cl1j")
+_firstPersonCameraScene = ExtResource("4_5kn8t")
 _thirdPersonCameraScene = ExtResource("5_421aa")
 CharacterScene = ExtResource("3_sdsqm")
 

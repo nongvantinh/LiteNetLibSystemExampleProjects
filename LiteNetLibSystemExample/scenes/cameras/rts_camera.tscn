@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk6hs4bmcfkri"]
+
+[ext_resource type="Script" path="res://core/cameras/RTSCamera.cs" id="1_tsyja"]
+
+[node name="rts_camera" type="Node3D" node_paths=PackedStringArray("CameraInstance")]
+script = ExtResource("1_tsyja")
+CameraInstance = NodePath("Camera3D")
+CameraRotation = Vector3(-1.135, 0.435, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]

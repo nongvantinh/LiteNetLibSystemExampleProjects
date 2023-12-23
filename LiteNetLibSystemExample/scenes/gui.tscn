@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1repp7mm80f5"]
+[gd_scene load_steps=7 format=3 uid="uid://d1repp7mm80f5"]
 
 [ext_resource type="PackedScene" uid="uid://dwoyb5o64dusr" path="res://scenes/virtual_joystick.tscn" id="1_ajvdw"]
 [ext_resource type="Script" path="res://core/GUIManager.cs" id="1_mtn3u"]
+[ext_resource type="Texture2D" uid="uid://e5jeuorlgxk1" path="res://icon.svg" id="2_ml4up"]
+[ext_resource type="Texture2D" uid="uid://m3hokjgqvom1" path="res://sprites/lifebar_bg.png" id="3_orip2"]
+[ext_resource type="Texture2D" uid="uid://bti0cnfjfbe76" path="res://sprites/lifebar_fill.png" id="4_ihhey"]
+[ext_resource type="PackedScene" uid="uid://uedyd40fno4c" path="res://scenes/gui/skill.tscn" id="6_ku011"]
 
 [node name="GUIManager" type="MarginContainer" node_paths=PackedStringArray("MovementJoystick", "SkillZeroJoystick", "SkillOneJoystick", "SkillTwoJoystick", "SkillThreeJoystick")]
 anchors_preset = 15
@@ -16,14 +20,99 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_mtn3u")
 MovementJoystick = NodePath("MobileLayout/FreeObjects/movement_joystick")
-SkillZeroJoystick = NodePath("")
-SkillOneJoystick = NodePath("")
-SkillTwoJoystick = NodePath("")
-SkillThreeJoystick = NodePath("")
+SkillZeroJoystick = NodePath("MobileLayout/FreeObjects/skill_zero")
+SkillOneJoystick = NodePath("MobileLayout/FreeObjects/skill_one")
+SkillTwoJoystick = NodePath("MobileLayout/FreeObjects/skill_two")
+SkillThreeJoystick = NodePath("MobileLayout/FreeObjects/skill_three")
 
 [node name="MobileLayout" type="Control" parent="."]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="Top" type="HBoxContainer" parent="MobileLayout"]
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Currency" type="VBoxContainer" parent="MobileLayout/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Money" type="HBoxContainer" parent="MobileLayout/Top/Currency"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="MobileLayout/Top/Currency/Money"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_ml4up")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="MobileLayout/Top/Currency/Money"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "1.000.000.000"
+
+[node name="Money2" type="HBoxContainer" parent="MobileLayout/Top/Currency"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="MobileLayout/Top/Currency/Money2"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_ml4up")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="MobileLayout/Top/Currency/Money2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "1.000.000.000"
+
+[node name="PetStats" type="VBoxContainer" parent="MobileLayout/Top"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MobileLayout/Top/PetStats"]
+layout_mode = 2
+mouse_filter = 2
+value = 70.0
+texture_under = ExtResource("3_orip2")
+texture_progress = ExtResource("4_ihhey")
+
+[node name="Label" type="Label" parent="MobileLayout/Top/PetStats/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "70/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="MobileLayout/Top/PetStats"]
+layout_mode = 2
+mouse_filter = 2
+value = 30.0
+texture_under = ExtResource("3_orip2")
+texture_progress = ExtResource("4_ihhey")
+
+[node name="Label" type="Label" parent="MobileLayout/Top/PetStats/TextureProgressBar2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "30/100"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FreeObjects" type="Control" parent="MobileLayout"]
 layout_mode = 2
@@ -38,3 +127,33 @@ offset_left = -783.0
 offset_top = -2.0
 offset_right = -383.0
 offset_bottom = 398.0
+
+[node name="skill_zero" parent="MobileLayout/FreeObjects" instance=ExtResource("6_ku011")]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+offset_left = 643.0
+offset_top = 255.0
+offset_right = 843.0
+offset_bottom = 455.0
+Type = 0
+
+[node name="skill_one" parent="MobileLayout/FreeObjects" instance=ExtResource("6_ku011")]
+layout_mode = 1
+offset_left = 438.0
+offset_top = 326.0
+offset_right = 588.0
+offset_bottom = 476.0
+
+[node name="skill_two" parent="MobileLayout/FreeObjects" instance=ExtResource("6_ku011")]
+layout_mode = 1
+offset_left = 468.0
+offset_top = 123.0
+offset_right = 618.0
+offset_bottom = 273.0
+
+[node name="skill_three" parent="MobileLayout/FreeObjects" instance=ExtResource("6_ku011")]
+layout_mode = 1
+offset_left = 686.0
+offset_top = 41.0
+offset_right = 836.0
+offset_bottom = 191.0

@@ -1,0 +1,157 @@
+[gd_scene load_steps=24 format=3 uid="uid://d4im8qd5xr2gj"]
+
+[ext_resource type="Script" path="res://core/RigidBody3DMoveable.cs" id="1_8evq3"]
+[ext_resource type="Script" path="res://core/BaseEntityController.cs" id="2_uqmtm"]
+[ext_resource type="Texture2D" uid="uid://c5i5n16co7q4a" path="res://sprites/Heal_Indicator_Blue.png" id="3_uede3"]
+[ext_resource type="Texture2D" uid="uid://ba20n7m7yvly7" path="res://sprites/Range_Indicator_Blue.png" id="4_b4dgk"]
+[ext_resource type="Texture2D" uid="uid://70r74idcxmi" path="res://sprites/Arrow_Ability_Indicator_Blue.png" id="5_bdpd4"]
+[ext_resource type="Script" path="res://core/behaviours/WalkBehaviour3D.cs" id="6_dkgyt"]
+[ext_resource type="Script" path="res://core/behaviours/SprintBehaviour3D.cs" id="7_j2lcr"]
+[ext_resource type="Script" path="res://core/behaviours/CrouchBehaviour3D.cs" id="8_m0fua"]
+[ext_resource type="Script" path="res://core/behaviours/FlyBehaviour3D.cs" id="9_yvqr5"]
+[ext_resource type="Script" path="res://core/behaviours/NavigationBehaviour3D.cs" id="10_1k0yv"]
+[ext_resource type="Script" path="res://core/behaviours/JumpBehaviour3D.cs" id="11_jqgj5"]
+[ext_resource type="Script" path="res://core/behaviours/SwimBehaviour3D.cs" id="12_ct87o"]
+[ext_resource type="Script" path="res://core/behaviours/GravityBehaviour3D.cs" id="13_cy6hq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pyxn8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_r7lbr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r2s6r"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_c5vaf"]
+material = SubResource("StandardMaterial3D_r2s6r")
+size = Vector3(0.68, 0.3, 0.5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qn0w4"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2o5fu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pgakg"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("3_uede3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rnao3"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("4_b4dgk")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a5m8w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chc2w"]
+transparency = 1
+albedo_texture = ExtResource("5_bdpd4")
+
+[node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("_feet")]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_pyxn8")
+continuous_cd = true
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_8evq3")
+_feet = NodePath("feet")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="MuzzlePosition" type="Node3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.732, -0.510347)
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_r7lbr")
+script = ExtResource("2_uqmtm")
+_pivot = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+
+MuzzlePosition = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.732, -0.510347),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+
+TargetAimingVisualizer = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+
+AttackRangeVisualizer = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+
+SkillShotVisualizer = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+
+
+[node name="Glass" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.362522, -0.3)
+mesh = SubResource("BoxMesh_c5vaf")
+skeleton = NodePath("../..")
+
+[node name="head" type="Node3D" parent="mesh"]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0.508732, -0.540178)
+
+[node name="horizontal_axis" type="Node3D" parent="mesh/head"]
+
+[node name="vertical_axis" type="SpringArm3D" parent="mesh/head/horizontal_axis"]
+spring_length = -3.0
+
+[node name="camera_3d" type="Camera3D" parent="mesh/head/horizontal_axis/vertical_axis"]
+keep_aspect = 0
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_qn0w4")
+
+[node name="TargetAimingVisualizer" type="Node3D" parent="."]
+
+[node name="TargetAimingVisualizer" type="MeshInstance3D" parent="TargetAimingVisualizer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("PlaneMesh_2o5fu")
+surface_material_override/0 = SubResource("StandardMaterial3D_pgakg")
+
+[node name="AttackRangeVisualizer" type="Node3D" parent="."]
+
+[node name="AttackRangeVisualizer" type="MeshInstance3D" parent="AttackRangeVisualizer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("PlaneMesh_2o5fu")
+surface_material_override/0 = SubResource("StandardMaterial3D_rnao3")
+
+[node name="SkillShotVisualizer" type="Node3D" parent="."]
+
+[node name="SkillShotVisualizer" type="MeshInstance3D" parent="SkillShotVisualizer"]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0.05, -2)
+mesh = SubResource("PlaneMesh_a5m8w")
+surface_material_override/0 = SubResource("StandardMaterial3D_chc2w")
+
+[node name="feet" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0650243, 0)
+target_position = Vector3(0, -0.2, 0)
+
+[node name="WalkBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("6_dkgyt")
+Active = true
+
+[node name="SprintBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("7_j2lcr")
+Active = true
+
+[node name="CrouchBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("8_m0fua")
+Active = true
+
+[node name="FlyBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("9_yvqr5")
+
+[node name="NavigationBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("10_1k0yv")
+Active = true
+
+[node name="JumpBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("11_jqgj5")
+Active = true
+
+[node name="SwimBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("12_ct87o")
+
+[node name="GravityBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("13_cy6hq")
+Active = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

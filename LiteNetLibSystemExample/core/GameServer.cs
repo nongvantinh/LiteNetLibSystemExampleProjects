@@ -11,7 +11,6 @@ public partial class GameServer : Node, INetEventListener
 {
     public ushort Tick => _serverEntityManager.Tick;
     public static GameServer Instance => _lazy.Value;
-
     private static readonly Lazy<GameServer> _lazy = new Lazy<GameServer>(() => new GameServer());
     private NetManager _netManager;
     private NetPacketProcessor _packetProcessor;
@@ -25,15 +24,16 @@ public partial class GameServer : Node, INetEventListener
 
     public override void _EnterTree()
     {
-        EntityManager.RegisterFieldType<Vector2>((first, second, weight) => first.Lerp(second, weight));
-        EntityManager.RegisterFieldType<Vector3>((first, second, weight) => first.Lerp(second, weight));
+        EntityManager.RegisterFieldType<Vector2>((first, second, weight) => first.Slerp(second, weight));
+        EntityManager.RegisterFieldType<Vector3>((first, second, weight) => first.Slerp(second, weight));
+        EntityManager.RegisterFieldType<Quaternion>((first, second, weight) => first.Slerp(second, weight));
         _netManager = new NetManager(this)
         {
             AutoRecycle = true,
             PacketPoolSize = 1000,
             SimulateLatency = true,
-            SimulationMinLatency = 50,
-            SimulationMaxLatency = 60,
+            SimulationMinLatency = 100,
+            SimulationMaxLatency = 200,
             SimulatePacketLoss = false,
             SimulationPacketLossChance = 10
         };
@@ -45,12 +45,12 @@ public partial class GameServer : Node, INetEventListener
                             .Register(GameEntities.Player, e => new BaseEntityPawn(e))
                             .Register(GameEntities.PlayerController, e => new BaseEntityController(e));
 
-        _serverEntityManager = new ServerEntityManager(typesMap, new InputProcessor<UserCommandData>(),
-                                    (byte)PacketType.EntitySystem, NetworkGeneral.GameFPS, ServerSendRate.EqualToFPS);
+        _serverEntityManager = new ServerEntityManager(typesMap, new InputProcessor<UserInputData>(),
+                                    (byte)PacketType.EntitySystem, NetworkConfigs.GameFPS, ServerSendRate.ThirdOfFPS);
 
 
-        _netManager.Start(NetworkGeneral.ServerPort);
-        Debug.Log($"Server is listening on port: {NetworkGeneral.ServerPort}");
+        _netManager.Start(NetworkConfigs.ServerPort);
+        Debug.Log($"Server is listening on port: {NetworkConfigs.ServerPort}");
     }
 
     public override void _ExitTree()
@@ -61,7 +61,7 @@ public partial class GameServer : Node, INetEventListener
         _serverEntityManager = null;
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
         _netManager.PollEvents();
         _serverEntityManager?.Update();
@@ -73,7 +73,10 @@ public partial class GameServer : Node, INetEventListener
 
         var serverPlayer = _serverEntityManager.AddPlayer(new LiteNetLibNetPeer(peer, true));
 
-        var player = _serverEntityManager.AddEntity<BaseEntityPawn>();
+        var player = _serverEntityManager.AddEntity<BaseEntityPawn>(e =>
+        {
+            e.Name.Value = joinPacket.UserName;
+        });
         _serverEntityManager.AddController<BaseEntityController>(serverPlayer, e => e.StartControl(player));
     }
 

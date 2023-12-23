@@ -2,21 +2,14 @@ using Godot;
 
 public partial class ThirdPersonCamera : BaseCamera
 {
-    [Export]
-    private float _armLength = 8.0f;
-    [Export]
-    private float _smoothSpeed = 6.25f;
-    [Export]
-    private float _sensitivity = 0.002f;
-    [Export]
-    private float _cameraMinVertical = -55; // -55 recommended
-    [Export]
-    private float _cameraMaxVertical = 75; // 75 recommended
-
+    [Export] private float _armLength = 8.0f;
+    [Export] private float _smoothSpeed = 6.25f;
+    [Export] private float _sensitivity = 0.002f;
+    [Export] private float _cameraMinVertical = -55; // -55 recommended
+    [Export] private float _cameraMaxVertical = 75; // 75 recommended
     private Node3D _horizontalAxis = null;
     private SpringArm3D _verticalAxis = null;
-    [Export]
-    private float _heightOffset = 3.0f;
+    [Export] private float _heightOffset = 3.0f;
 
     public override void _Ready()
     {
@@ -34,7 +27,6 @@ public partial class ThirdPersonCamera : BaseCamera
         Update(delta);
     }
 
-
     private void Update(double delta)
     {
         if (Target == null)
@@ -43,7 +35,6 @@ public partial class ThirdPersonCamera : BaseCamera
         }
 
         GlobalPosition = Pivot.GlobalPosition + Vector3.Up * _heightOffset;
-
         float horizontalAxis = (float)Mathf.Lerp(_horizontalAxis.Rotation.Y, CameraRotation.X, delta * _smoothSpeed);
         float verticalAxis = (float)Mathf.Lerp(_verticalAxis.Rotation.X, CameraRotation.Y, delta * _smoothSpeed);
 

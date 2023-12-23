@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqooyy7ocq4r7"]
+
+[ext_resource type="Script" path="res://core/CharacterBody3DMoveable.cs" id="1_uguua"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_u8cnb"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3jqva"]
+radius = 0.25
+
+[node name="Area3D" type="CharacterBody3D"]
+script = ExtResource("1_uguua")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_u8cnb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_3jqva")

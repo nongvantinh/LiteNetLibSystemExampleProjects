@@ -29,3 +29,17 @@ public struct SkillPacket
 {
     public Vector2 Direction;
 }
+public struct CameraModePacket : INetSerializable
+{
+    public CameraMode CameraMode;
+
+    public void Deserialize(NetDataReader reader)
+    {
+        CameraMode = (CameraMode)reader.GetInt();
+    }
+
+    public void Serialize(NetDataWriter writer)
+    {
+        writer.Put(CameraMode);
+    }
+}

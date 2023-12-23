@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://core/cameras/ThirdPersonCamera.cs" id="1_j6nhx"]
 
-[node name="third_person_camera" type="Node3D" node_paths=PackedStringArray("Camera")]
+[node name="third_person_camera" type="Node3D" node_paths=PackedStringArray("CameraInstance")]
 script = ExtResource("1_j6nhx")
 _heightOffset = 1.75
-Camera = NodePath("horizontal_axis/vertical_axis/camera_3d")
+CameraInstance = NodePath("horizontal_axis/vertical_axis/camera_3d")
 
 [node name="horizontal_axis" type="Node3D" parent="."]
 

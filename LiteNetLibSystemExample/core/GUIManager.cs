@@ -5,6 +5,10 @@ public partial class GUIManager : Control
     public static GUIManager Instance { get; private set; }
     [Export] public RichTextLabel DebugText;
     [Export] public VirtualJoystick MovementJoystick = null;
+    [Export] public VirtualJoystick SkillZeroJoystick { get; private set; } = null;
+    [Export] public VirtualJoystick SkillOneJoystick { get; private set; } = null;
+    [Export] public VirtualJoystick SkillTwoJoystick { get; private set; } = null;
+    [Export] public VirtualJoystick SkillThreeJoystick { get; private set; } = null;
 
     [Signal] public delegate void ScreenWipeEventHandler(Vector2 relative);
     [Export] public TextureButton SwitchCameraModeBtn { get; set; } = null;

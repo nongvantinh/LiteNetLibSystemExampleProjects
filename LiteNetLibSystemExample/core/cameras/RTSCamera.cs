@@ -2,10 +2,8 @@ using Godot;
 
 public partial class RTSCamera : BaseCamera
 {
-    [Export]
-    private float _smoothSpeed = 6.25f;
-    [Export]
-    private Vector3 _offset = new Vector3(3.544f, 12.948f, 1.625f);
+    [Export] private float _smoothSpeed = 6.25f;
+    [Export] private Vector3 _offset = new Vector3(0.774f, 12.948f, 1.625f);
 
     public override void _Process(double delta)
     {
@@ -21,7 +19,7 @@ public partial class RTSCamera : BaseCamera
         }
 
         GlobalPosition = GlobalPosition.Lerp(Target.GlobalPosition + _offset, _smoothSpeed * delta);
-        RotationDegrees = RotationDegrees.Lerp(CameraRotation, _smoothSpeed * delta);
+        GlobalRotation = GlobalRotation.Lerp(CameraRotation, _smoothSpeed * delta);
 
         HorizontalRotation = Rotation.Y;
     }

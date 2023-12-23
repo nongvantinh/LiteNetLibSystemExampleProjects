@@ -11,8 +11,6 @@ public partial class GameClient : Node, INetEventListener
 {
     public static GameClient Instance => _lazy.Value;
 
-    public BaseEntityPawn MyPlayer { get; private set; }
-
     private static readonly Lazy<GameClient> _lazy = new Lazy<GameClient>(() => new GameClient());
     private NetManager _netManager;
     private NetDataWriter _writer;
@@ -34,9 +32,9 @@ public partial class GameClient : Node, INetEventListener
 
     public override void _EnterTree()
     {
-        EntityManager.RegisterFieldType<Vector2>((first, second, weight) => first.Lerp(second, weight));
-        EntityManager.RegisterFieldType<Vector3>((first, second, weight) => first.Lerp(second, weight));
-        //EntityManager.RegisterFieldType<UserMovementData>(UserMovementData.Lerp);
+        EntityManager.RegisterFieldType<Vector2>((first, second, weight) => first.Slerp(second, weight));
+        EntityManager.RegisterFieldType<Vector3>((first, second, weight) => first.Slerp(second, weight));
+        EntityManager.RegisterFieldType<Quaternion>((first, second, weight) => first.Slerp(second, weight));
         _writer = new NetDataWriter();
 
         _packetProcessor = new NetPacketProcessor();
@@ -46,8 +44,8 @@ public partial class GameClient : Node, INetEventListener
             EnableStatistics = true,
             IPv6Enabled = false,
             SimulateLatency = true,
-            SimulationMinLatency = 50,
-            SimulationMaxLatency = 60,
+            SimulationMinLatency = 100,
+            SimulationMaxLatency = 200,
             SimulatePacketLoss = false,
             SimulationPacketLossChance = 10
         };
@@ -64,7 +62,7 @@ public partial class GameClient : Node, INetEventListener
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
         _netManager.PollEvents();
         _secondTimer += (float)delta;
@@ -123,14 +121,13 @@ OUT: {BytesOutPerSecond / 1000f} KB/s({PacketsOutPerSecond})";
                             .Register(GameEntities.Player, e => new BaseEntityPawn(e))
                             .Register(GameEntities.PlayerController, e => new BaseEntityController(e));
 
-        _entityManager = new ClientEntityManager(typesMap, new InputProcessor<UserCommandData>(),
-            new LiteNetLibNetPeer(peer, true), (byte)PacketType.EntitySystem, NetworkGeneral.GameFPS);
+        _entityManager = new ClientEntityManager(typesMap, new InputProcessor<UserInputData>(),
+            new LiteNetLibNetPeer(peer, true), (byte)PacketType.EntitySystem, NetworkConfigs.GameFPS);
 
         _entityManager.GetEntities<BaseEntityPawn>().SubscribeToConstructed(player =>
         {
             if (player.IsLocalControlled)
             {
-                MyPlayer = player;
                 Debug.Log($"IsLocalControlled");
             }
             else
@@ -142,7 +139,7 @@ OUT: {BytesOutPerSecond / 1000f} KB/s({PacketsOutPerSecond})";
 
     void INetEventListener.OnPeerDisconnected(NetPeer peer, DisconnectInfo info)
     {
-        _entityManager?.Reset();
+        _entityManager.Reset();
         _server = null;
         _entityManager = null;
         Debug.Log($"[C] Disconnected from server: {info.Reason}, {info.SocketErrorCode}, {info.AdditionalData}");
@@ -189,6 +186,6 @@ OUT: {BytesOutPerSecond / 1000f} KB/s({PacketsOutPerSecond})";
 
     public void Connect(string ip)
     {
-        _netManager.Connect(ip, NetworkGeneral.ServerPort, "ExampleGame");
+        _netManager.Connect(ip, NetworkConfigs.ServerPort, "ExampleGame");
     }
 }

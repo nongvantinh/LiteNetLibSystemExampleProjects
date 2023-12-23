@@ -1,7 +1,8 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
-public partial class CharacterBody3DMoveable : CharacterBody3D, IMovable
+public partial class RigidBody3DMoveable : RigidBody3D, IMovable
 {
     [Export] public Node3D Head { get; set; }
     [Export] public Node3D Pivot { get; set; }
@@ -12,29 +13,16 @@ public partial class CharacterBody3DMoveable : CharacterBody3D, IMovable
 
     public BaseEntityPawn AttachedPlayer { get; set; }
     [Export] public MovementBehaviour Behaviour { get; set; }
+    public Vector3 Velocity { get; set; }
 
     private List<BaseBehaviour3D> _behaviours = new List<BaseBehaviour3D>();
+    private bool _isOnFloor = false;
+    [Export] private RayCast3D _feet;
 
-    public void RegisterBehavior(BaseBehaviour3D behaviour3D)
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
     {
-        if (_behaviours.Contains(behaviour3D))
-        {
-            Debug.Log(behaviour3D.Name + " already added to this object");
-            return;
-        }
-
-        _behaviours.Add(behaviour3D);
-
-        if (!HasNode(behaviour3D.GetPath()))
-        {
-            AddChild(behaviour3D);
-        }
-    }
-
-    public void Start(MovementBehaviour behaviour)
-    {
-        Behaviour = behaviour;
-        Show();
+        LinearDamp = 1.0f;
     }
 
     public override void _Process(double delta)
@@ -45,7 +33,6 @@ public partial class CharacterBody3DMoveable : CharacterBody3D, IMovable
             GlobalRotation = AttachedPlayer.SyncedGlobalRotation;
             if (AttachedPlayer.CurrentCamera != null)
             {
-                AttachedPlayer.UpdateCameraMode();
                 AttachedPlayer.CurrentCamera.CameraRotation = AttachedPlayer.SyncedCameraRotation;
             }
         }
@@ -59,6 +46,26 @@ public partial class CharacterBody3DMoveable : CharacterBody3D, IMovable
             _behaviours[i].Apply(ref tempVelocity, ref command, (float)delta);
         }
         Velocity = tempVelocity;
-        MoveAndSlide();
+    }
+
+    public override void _IntegrateForces(PhysicsDirectBodyState3D state)
+    {
+    }
+
+
+    public void Start(MovementBehaviour behaviour)
+    {
+        Behaviour = behaviour;
+    }
+
+    public bool IsOnFloor()
+    {
+        return _isOnFloor;
+    }
+
+    public void RegisterBehavior(BaseBehaviour3D behaviour3D)
+    {
+        _behaviours.Append(behaviour3D);
+        AddChild(behaviour3D);
     }
 }

@@ -74,10 +74,8 @@ size = Vector3(14, 0.5, 4)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_do582"]
 data = PackedVector3Array(-7, 0.25, 2, 7, 0.25, 2, -7, -0.25, 2, 7, 0.25, 2, 7, -0.25, 2, -7, -0.25, 2, 7, 0.25, -2, -7, 0.25, -2, 7, -0.25, -2, -7, 0.25, -2, -7, -0.25, -2, 7, -0.25, -2, 7, 0.25, 2, 7, 0.25, -2, 7, -0.25, 2, 7, 0.25, -2, 7, -0.25, -2, 7, -0.25, 2, -7, 0.25, -2, -7, 0.25, 2, -7, -0.25, -2, -7, 0.25, 2, -7, -0.25, 2, -7, -0.25, -2, 7, 0.25, 2, -7, 0.25, 2, 7, 0.25, -2, -7, 0.25, 2, -7, 0.25, -2, 7, 0.25, -2, -7, -0.25, 2, 7, -0.25, 2, -7, -0.25, -2, 7, -0.25, 2, 7, -0.25, -2, -7, -0.25, -2)
 
-[node name="L_Main" type="Node3D" node_paths=PackedStringArray("TargetNode", "_startPosition")]
+[node name="L_Main" type="Node3D"]
 script = ExtResource("1_6ddk2")
-TargetNode = NodePath("Target")
-_startPosition = NodePath("StartingPoint")
 
 [node name="Lighting" type="Node" parent="."]
 

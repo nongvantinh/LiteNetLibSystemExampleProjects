@@ -1,6 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://31bjknd07pd4"]
+[gd_scene load_steps=22 format=3 uid="uid://31bjknd07pd4"]
 
 [ext_resource type="Script" path="res://core/CharacterBody3DMoveable.cs" id="1_bn1ah"]
+[ext_resource type="Texture2D" uid="uid://c5i5n16co7q4a" path="res://sprites/Heal_Indicator_Blue.png" id="2_htp2u"]
+[ext_resource type="Texture2D" uid="uid://ba20n7m7yvly7" path="res://sprites/Range_Indicator_Blue.png" id="2_q1134"]
+[ext_resource type="Texture2D" uid="uid://70r74idcxmi" path="res://sprites/Arrow_Ability_Indicator_Blue.png" id="3_n6e0d"]
+[ext_resource type="Script" path="res://core/behaviours/NavigationBehaviour3D.cs" id="3_pmi27"]
+[ext_resource type="Script" path="res://core/behaviours/WalkBehaviour3D.cs" id="6_18hvr"]
+[ext_resource type="Script" path="res://core/behaviours/SprintBehaviour3D.cs" id="7_refme"]
+[ext_resource type="Script" path="res://core/behaviours/JumpBehaviour3D.cs" id="8_6k20d"]
+[ext_resource type="Script" path="res://core/behaviours/FlyBehaviour3D.cs" id="9_br1r5"]
+[ext_resource type="Script" path="res://core/behaviours/CrouchBehaviour3D.cs" id="10_snv34"]
+[ext_resource type="Script" path="res://core/behaviours/SwimBehaviour3D.cs" id="12_eclfs"]
+[ext_resource type="Script" path="res://core/behaviours/GravityBehaviour3D.cs" id="13_6cneb"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r7lbr"]
 
@@ -13,9 +24,32 @@ size = Vector3(0.68, 0.3, 0.5)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qn0w4"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("_head")]
+[sub_resource type="PlaneMesh" id="PlaneMesh_2o5fu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pgakg"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("2_htp2u")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rnao3"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("2_q1134")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a5m8w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chc2w"]
+transparency = 1
+albedo_texture = ExtResource("3_n6e0d")
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("Head", "Pivot", "MuzzlePosition", "TargetAimingVisualizer", "AttackRangeVisualizer", "SkillShotVisualizer")]
 script = ExtResource("1_bn1ah")
-_head = NodePath("mesh/head")
+Head = NodePath("mesh/head")
+Pivot = NodePath("Pivot")
+MuzzlePosition = NodePath("Pivot/MuzzlePosition")
+TargetAimingVisualizer = NodePath("TargetAimingVisualizer")
+AttackRangeVisualizer = NodePath("AttackRangeVisualizer")
+SkillShotVisualizer = NodePath("SkillShotVisualizer")
 
 [node name="Pivot" type="Node3D" parent="."]
 
@@ -39,6 +73,60 @@ transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0.508
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_qn0w4")
+
+[node name="TargetAimingVisualizer" type="Node3D" parent="."]
+
+[node name="mesh" type="MeshInstance3D" parent="TargetAimingVisualizer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("PlaneMesh_2o5fu")
+surface_material_override/0 = SubResource("StandardMaterial3D_pgakg")
+
+[node name="AttackRangeVisualizer" type="Node3D" parent="."]
+
+[node name="mesh" type="MeshInstance3D" parent="AttackRangeVisualizer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("PlaneMesh_2o5fu")
+surface_material_override/0 = SubResource("StandardMaterial3D_rnao3")
+
+[node name="SkillShotVisualizer" type="Node3D" parent="."]
+
+[node name="mesh" type="MeshInstance3D" parent="SkillShotVisualizer"]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0.05, -2)
+mesh = SubResource("PlaneMesh_a5m8w")
+surface_material_override/0 = SubResource("StandardMaterial3D_chc2w")
+
+[node name="WalkBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("6_18hvr")
+Active = true
+
+[node name="SprintBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("7_refme")
+Active = true
+
+[node name="CrouchBehaviour3D" type="Node3D" parent="." node_paths=PackedStringArray("_collision", "_headCheck")]
+script = ExtResource("10_snv34")
+_collision = NodePath("../CollisionShape3D")
+_headCheck = NodePath("../RayCast3D")
+Active = true
+
+[node name="FlyBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("9_br1r5")
+
+[node name="NavigationBehaviour3D" type="Node3D" parent="." node_paths=PackedStringArray("_navigationAgent")]
+script = ExtResource("3_pmi27")
+_navigationAgent = NodePath("../NavigationAgent3D")
+Active = true
+
+[node name="JumpBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("8_6k20d")
+Active = true
+
+[node name="SwimBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("12_eclfs")
+
+[node name="GravityBehaviour3D" type="Node3D" parent="."]
+script = ExtResource("13_6cneb")
+Active = true
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
