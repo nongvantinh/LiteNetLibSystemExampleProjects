@@ -30,19 +30,6 @@ public partial class Area3DMoveable : Area3D, IMovable
         BodyEntered += OnBodyEntered;
     }
 
-    public override void _Process(double delta)
-    {
-        if (AttachedPlayer.EntityManager.IsClient && AttachedPlayer.IsRemoteControlled)
-        {
-            GlobalPosition = AttachedPlayer.SyncedGlobalPosition;
-            GlobalRotation = AttachedPlayer.SyncedGlobalRotation;
-            if (AttachedPlayer.CurrentCamera != null)
-            {
-                AttachedPlayer.CurrentCamera.CameraRotation = AttachedPlayer.SyncedCameraRotation;
-            }
-        }
-    }
-
     void IMovable.Movement(UserInputData command, float delta)
     {
         Vector3 tempVelocity = Velocity;

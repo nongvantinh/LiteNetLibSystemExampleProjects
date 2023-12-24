@@ -3,6 +3,7 @@ using LiteEntitySystem;
 using LiteEntitySystem.Extensions;
 using System.Collections.Generic;
 
+[UpdateableEntity(true)]
 public partial class BaseEntityPawn : PawnLogic
 {
     [SyncVarFlags(SyncFlags.Interpolated | SyncFlags.LagCompensated)]
@@ -68,7 +69,7 @@ public partial class BaseEntityPawn : PawnLogic
         _thirdPersonCamera.Pivot = (Node3D)Body;
         _thirdPersonCamera.Target = (Node3D)Body;
 
-        UpdateCameraMode();
+        OnSwitchCameraMode(_currentCameraMode);
         //PackedScene bulletScene = ResourceLoader.Load("res://scenes/bullet.tscn") as PackedScene;
         //PackedScene ballScene = ResourceLoader.Load("res://scenes/ball.tscn") as PackedScene;
 
@@ -83,11 +84,6 @@ public partial class BaseEntityPawn : PawnLogic
         //     _pool.Add(ball);
         // }
 
-    }
-
-    public void UpdateCameraMode()
-    {
-        OnSwitchCameraMode(_currentCameraMode);
     }
 
     protected override void OnDestroy()
@@ -106,9 +102,15 @@ public partial class BaseEntityPawn : PawnLogic
         {
             Body.GlobalPosition = SyncedGlobalPosition;
             Body.GlobalRotation = SyncedGlobalRotation;
-            UpdateCameraMode();
+            OnSwitchCameraMode(_currentCameraMode);
             CurrentCamera.CameraRotation = SyncedCameraRotation;
+
+            if (IsRemoteControlled)
+            {
+                return;
+            }
         }
+
         CurrentCamera.Rotate(_commands.RotationVector);
 
         UpdateRotation(_commands.Direction);

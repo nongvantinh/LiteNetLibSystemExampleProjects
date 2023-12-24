@@ -37,20 +37,6 @@ public partial class CharacterBody3DMoveable : CharacterBody3D, IMovable
         Show();
     }
 
-    public override void _Process(double delta)
-    {
-        if (AttachedPlayer.EntityManager.IsClient && AttachedPlayer.IsRemoteControlled)
-        {
-            GlobalPosition = AttachedPlayer.SyncedGlobalPosition;
-            GlobalRotation = AttachedPlayer.SyncedGlobalRotation;
-            if (AttachedPlayer.CurrentCamera != null)
-            {
-                AttachedPlayer.UpdateCameraMode();
-                AttachedPlayer.CurrentCamera.CameraRotation = AttachedPlayer.SyncedCameraRotation;
-            }
-        }
-    }
-
     public void Movement(UserInputData command, float delta)
     {
         Vector3 tempVelocity = Velocity;
