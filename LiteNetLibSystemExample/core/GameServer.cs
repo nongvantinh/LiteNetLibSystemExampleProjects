@@ -61,7 +61,7 @@ public partial class GameServer : Node, INetEventListener
         _serverEntityManager = null;
     }
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
         _netManager.PollEvents();
         _serverEntityManager?.Update();
