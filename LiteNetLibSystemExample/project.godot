@@ -31,7 +31,7 @@ window/stretch/aspect="expand"
 
 [dotnet]
 
-project/assembly_name="azheir"
+project/assembly_name="LiteNetLibSystemExample"
 
 [input]
 

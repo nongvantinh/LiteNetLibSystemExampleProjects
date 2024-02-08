@@ -27,7 +27,7 @@ public partial class GameManager : Node
     public static float Gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     public static bool IsPlaying = true;
     [Export] public bool IsServer = false;
-    [Export] public string ServerIPAddress = GetLocalIPAddress();
+    [Export] public string ServerIPAddress = "192.168.1.11";
 
     public GameManager()
     {

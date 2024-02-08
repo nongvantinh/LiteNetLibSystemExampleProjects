@@ -64,12 +64,12 @@ public partial class GameClient : Node, INetEventListener
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
     {
-        _netManager.PollEvents();
+        _netManager?.PollEvents();
         _secondTimer += (float)delta;
         if (_secondTimer >= 1f)
         {
             _secondTimer -= 1f;
-            var stats = _netManager.Statistics;
+            var stats = _netManager?.Statistics;
             BytesInPerSecond = (int)(stats.BytesReceived);
             PacketsInPerSecond = (int)(stats.PacketsReceived);
             BytesOutPerSecond = (int)(stats.BytesSent);
@@ -139,7 +139,7 @@ OUT: {BytesOutPerSecond / 1000f} KB/s({PacketsOutPerSecond})";
 
     void INetEventListener.OnPeerDisconnected(NetPeer peer, DisconnectInfo info)
     {
-        _entityManager.Reset();
+        _entityManager?.Reset();
         _server = null;
         _entityManager = null;
         Debug.Log($"[C] Disconnected from server: {info.Reason}, {info.SocketErrorCode}, {info.AdditionalData}");
@@ -186,6 +186,7 @@ OUT: {BytesOutPerSecond / 1000f} KB/s({PacketsOutPerSecond})";
 
     public void Connect(string ip)
     {
+        Debug.Log($"Connecting to {ip}:{NetworkConfigs.ServerPort}");
         _netManager.Connect(ip, NetworkConfigs.ServerPort, "ExampleGame");
     }
 }
