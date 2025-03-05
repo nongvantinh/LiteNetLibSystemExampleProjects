@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bqbmt4k85ngaw" path="res://sprites/background-joystick.png" id="1_anwax"]
 [ext_resource type="Texture2D" uid="uid://uh83dr2aawne" path="res://sprites/joystick.png" id="2_hgqf5"]
-[ext_resource type="Script" path="res://core/VirtualJoystick.cs" id="2_p5erc"]
+[ext_resource type="Script" uid="uid://dkalw8outaqta" path="res://core/VirtualJoystick.cs" id="2_p5erc"]
 
 [node name="virtual_joystick" type="TextureRect"]
 anchors_preset = 8

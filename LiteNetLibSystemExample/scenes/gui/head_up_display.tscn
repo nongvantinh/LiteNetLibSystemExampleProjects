@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://clucg5dhxrxrp"]
 
-[ext_resource type="Script" path="res://core/gui/HUDSettings.cs" id="1_c62e3"]
+[ext_resource type="Script" uid="uid://dkcsn0gggnlkx" path="res://core/gui/HUDSettings.cs" id="1_c62e3"]
 [ext_resource type="Theme" uid="uid://wvufdq6bdwu1" path="res://presets/default_theme.tres" id="1_h0elw"]
-[ext_resource type="Script" path="res://core/GUIManager.cs" id="2_2ei4r"]
+[ext_resource type="Script" uid="uid://bgum72jatsn57" path="res://core/GUIManager.cs" id="2_2ei4r"]
 [ext_resource type="Texture2D" uid="uid://e5jeuorlgxk1" path="res://icon.svg" id="3_x2mqb"]
 [ext_resource type="Texture2D" uid="uid://m3hokjgqvom1" path="res://sprites/lifebar_bg.png" id="4_gr3e5"]
 [ext_resource type="Texture2D" uid="uid://bti0cnfjfbe76" path="res://sprites/lifebar_fill.png" id="5_075gk"]

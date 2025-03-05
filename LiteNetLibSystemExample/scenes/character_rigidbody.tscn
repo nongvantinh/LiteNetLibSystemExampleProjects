@@ -1,18 +1,18 @@
 [gd_scene load_steps=24 format=3 uid="uid://d4im8qd5xr2gj"]
 
-[ext_resource type="Script" path="res://core/RigidBody3DMoveable.cs" id="1_8evq3"]
-[ext_resource type="Script" path="res://core/BaseEntityController.cs" id="2_uqmtm"]
+[ext_resource type="Script" uid="uid://blo7uyadvgqym" path="res://core/RigidBody3DMoveable.cs" id="1_8evq3"]
+[ext_resource type="Script" uid="uid://ca62pwjl7ss7n" path="res://core/BaseEntityController.cs" id="2_uqmtm"]
 [ext_resource type="Texture2D" uid="uid://c5i5n16co7q4a" path="res://sprites/Heal_Indicator_Blue.png" id="3_uede3"]
 [ext_resource type="Texture2D" uid="uid://ba20n7m7yvly7" path="res://sprites/Range_Indicator_Blue.png" id="4_b4dgk"]
 [ext_resource type="Texture2D" uid="uid://70r74idcxmi" path="res://sprites/Arrow_Ability_Indicator_Blue.png" id="5_bdpd4"]
-[ext_resource type="Script" path="res://core/behaviours/WalkBehaviour3D.cs" id="6_dkgyt"]
-[ext_resource type="Script" path="res://core/behaviours/SprintBehaviour3D.cs" id="7_j2lcr"]
-[ext_resource type="Script" path="res://core/behaviours/CrouchBehaviour3D.cs" id="8_m0fua"]
-[ext_resource type="Script" path="res://core/behaviours/FlyBehaviour3D.cs" id="9_yvqr5"]
-[ext_resource type="Script" path="res://core/behaviours/NavigationBehaviour3D.cs" id="10_1k0yv"]
-[ext_resource type="Script" path="res://core/behaviours/JumpBehaviour3D.cs" id="11_jqgj5"]
-[ext_resource type="Script" path="res://core/behaviours/SwimBehaviour3D.cs" id="12_ct87o"]
-[ext_resource type="Script" path="res://core/behaviours/GravityBehaviour3D.cs" id="13_cy6hq"]
+[ext_resource type="Script" uid="uid://v4fqkrvqcp3u" path="res://core/behaviours/WalkBehaviour3D.cs" id="6_dkgyt"]
+[ext_resource type="Script" uid="uid://c37mhprl1tpbq" path="res://core/behaviours/SprintBehaviour3D.cs" id="7_j2lcr"]
+[ext_resource type="Script" uid="uid://bcw0kgr5qn7tq" path="res://core/behaviours/CrouchBehaviour3D.cs" id="8_m0fua"]
+[ext_resource type="Script" uid="uid://c4tf6yudg57e0" path="res://core/behaviours/FlyBehaviour3D.cs" id="9_yvqr5"]
+[ext_resource type="Script" uid="uid://b6a1gs6mh0aqa" path="res://core/behaviours/NavigationBehaviour3D.cs" id="10_1k0yv"]
+[ext_resource type="Script" uid="uid://yyu67f7poh3p" path="res://core/behaviours/JumpBehaviour3D.cs" id="11_jqgj5"]
+[ext_resource type="Script" uid="uid://dok1v6lhxovlo" path="res://core/behaviours/SwimBehaviour3D.cs" id="12_ct87o"]
+[ext_resource type="Script" uid="uid://dbn60rf8ri0n" path="res://core/behaviours/GravityBehaviour3D.cs" id="13_cy6hq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pyxn8"]
 
@@ -65,15 +65,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.732, -0.510347)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_r7lbr")
 script = ExtResource("2_uqmtm")
-_pivot = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+_pivot = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
 
-MuzzlePosition = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.732, -0.510347),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+MuzzlePosition = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.732, -0.510347),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
 
-TargetAimingVisualizer = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+TargetAimingVisualizer = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
 
-AttackRangeVisualizer = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+AttackRangeVisualizer = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
 
-SkillShotVisualizer = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+SkillShotVisualizer = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
 
 
 [node name="Glass" type="MeshInstance3D" parent="mesh"]

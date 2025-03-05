@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 
@@ -9,35 +10,42 @@ public enum SupportedOS
     Haiku = 1 << 1,
     iOS = 1 << 2,
     HTML5 = 1 << 3,
-    OSX = 1 << 4,
+    macOS = 1 << 4,
     Server = 1 << 5,
     Windows = 1 << 6,
     UWP = 1 << 7,
-    X11 = 1 << 8,
-    Desktop = Windows | UWP | X11 | OSX,
+    Linux = 1 << 8,
+    Desktop = Windows | UWP | Linux | macOS,
     Mobile = Android | iOS,
     All = Desktop | Mobile | HTML5
 }
 
 public partial class GameManager : Node
 {
-    public static GameManager Instance { get; private set; }
+    private static readonly Lazy<GameManager> lazyInstance = new Lazy<GameManager>(() => new GameManager());
+
+    public static GameManager Instance => lazyInstance.Value;
     public readonly SupportedOS CurrentOS = Enum.Parse<SupportedOS>(OS.GetName());
     public static Node3D World { get; set; }
     public static float Gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     public static bool IsPlaying = true;
     [Export] public bool IsServer = false;
-    [Export] public string ServerIPAddress = "192.168.1.11";
+    [Export] public string ServerIPAddress = "127.0.0.1";
 
-    public GameManager()
-    {
-        Instance = this;
-    }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        Input.MouseMode = IsPlaying ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
+        //check for args to override server settings from command line args
+        var args = OS.GetCmdlineArgs();
+        if (args.Contains("--server"))
+        {
+            IsServer = true;
+        }
+        if (args.Contains("--client"))
+        {
+            IsServer = false;
+        }
         if (IsServer)
         {
             AddChild(GameServer.Instance);

@@ -16,3 +16,9 @@ mono_crash.*.json
 
 [Bb]uild*/
 .vs
+
+#mac files
+.DS_Store
+
+#idea 
+.idea

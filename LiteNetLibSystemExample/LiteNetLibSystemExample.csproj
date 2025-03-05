@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/4.2.0">
+﻿<Project Sdk="Godot.NET.Sdk/4.4.0">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
@@ -7,14 +7,7 @@
   <ItemGroup>
     <PackageReference Include="FlakeId" Version="1.1.2" />
     <PackageReference Include="K4os.Compression.LZ4" Version="1.3.6" />
-    <PackageReference Include="LiteNetLib" Version="1.1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="LiteEntitySystem">
-      <HintPath>modules\LiteEntitySystem.dll</HintPath>
-    </Reference>
-    <Reference Include="RefMagic">
-      <HintPath>modules\RefMagic.dll</HintPath>
-    </Reference>
+    <PackageReference Include="LiteEntitySystem" Version="1.0.1" />
+    <PackageReference Include="LiteNetLib" Version="1.3.1" />
   </ItemGroup>
 </Project>

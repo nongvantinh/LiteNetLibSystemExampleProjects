@@ -3,28 +3,28 @@ using LiteEntitySystem;
 using LiteEntitySystem.Extensions;
 using System.Collections.Generic;
 
-[UpdateableEntity(true)]
+[EntityFlags(EntityFlags.UpdateOnClient)]
 public partial class BaseEntityPawn : PawnLogic
 {
     [SyncVarFlags(SyncFlags.Interpolated | SyncFlags.LagCompensated)]
     private SyncVar<Vector3> _globalPosition;
     [SyncVarFlags(SyncFlags.Interpolated | SyncFlags.LagCompensated)]
-    private SyncVar<Vector3> _globalRotation = Vector3.Zero;
+    private SyncVar<Vector3> _globalRotation;
+    private SyncVar<Vector2> _position;
     [SyncVarFlags(SyncFlags.Interpolated | SyncFlags.LagCompensated)]
     private SyncVar<CameraMode> _currentCameraMode;
     [SyncVarFlags(SyncFlags.Interpolated | SyncFlags.LagCompensated)]
-    private SyncVar<Vector3> _cameraRotation = Vector3.Zero;
-
+    private SyncVar<Vector3> _cameraRotation;
     [SyncVarFlags(SyncFlags.AlwaysRollback)]
     private SyncVar<byte> _health;
     [SyncVarFlags(SyncFlags.Interpolated | SyncFlags.LagCompensated)]
-    private SyncVar<float> _speed = 5.0f;
+    private SyncVar<float> _speed;
     public readonly SyncString Name = new();
     private readonly SyncTimer _shootTimer = new(0.5f);
-    private RemoteCall<SkillPacket> _skillZeroRemoteCall;
-    private RemoteCall<SkillPacket> _skillOneRemoteCall;
-    private RemoteCall<SkillPacket> _skillTwoRemoteCall;
-    private RemoteCall<SkillPacket> _skillThreeRemoteCall;
+    private static RemoteCall<SkillPacket> _skillZeroRemoteCall;
+    private static RemoteCall<SkillPacket> _skillOneRemoteCall;
+    private static RemoteCall<SkillPacket> _skillTwoRemoteCall;
+    private static RemoteCall<SkillPacket> _skillThreeRemoteCall;
     private RTSCamera _rtsCamera;
     private FirstPersonCamera _firstPersonCamera;
     private ThirdPersonCamera _thirdPersonCamera;
@@ -44,6 +44,9 @@ public partial class BaseEntityPawn : PawnLogic
 
     public BaseEntityPawn(EntityParams entityParams) : base(entityParams)
     {
+        _globalRotation.Value = Vector3.Zero;
+        _cameraRotation.Value = Vector3.Zero;
+        _speed.Value = 5.0f;
     }
 
     protected override void OnConstructed()
@@ -85,7 +88,7 @@ public partial class BaseEntityPawn : PawnLogic
         // }
 
     }
-
+    
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -107,6 +110,7 @@ public partial class BaseEntityPawn : PawnLogic
 
             if (IsRemoteControlled)
             {
+                Debug.Log("Sync global position: " + SyncedGlobalPosition);
                 return;
             }
         }
@@ -116,28 +120,29 @@ public partial class BaseEntityPawn : PawnLogic
         UpdateRotation(_commands.Direction);
         Body.Movement(_commands, EntityManager.DeltaTimeF);
 
-        _globalPosition = Body.GlobalPosition;
-        _globalRotation = Body.GlobalRotation;
-        _cameraRotation = CurrentCamera.CameraRotation;
+        _globalPosition.Value = Body.GlobalPosition;
+        _globalRotation.Value = Body.GlobalRotation;
+        _cameraRotation.Value = CurrentCamera.CameraRotation;
     }
 
     public void SetInput(UserInputData command)
     {
         _commands = command;
     }
-
-    protected override void RegisterRPC(in RPCRegistrator r)
+    
+    protected override void RegisterRPC(ref RPCRegistrator r)
     {
-        base.RegisterRPC(in r);
+        base.RegisterRPC(ref r);
         r.CreateRPCAction(this, OnSkillZeroExecuted, ref _skillZeroRemoteCall, ExecuteFlags.ExecuteOnPrediction | ExecuteFlags.SendToOther);
         r.CreateRPCAction(this, OnSkillOneExecuted, ref _skillOneRemoteCall, ExecuteFlags.ExecuteOnPrediction | ExecuteFlags.SendToOther);
         r.CreateRPCAction(this, OnSkillTwoExecuted, ref _skillTwoRemoteCall, ExecuteFlags.ExecuteOnPrediction | ExecuteFlags.SendToOther);
         r.CreateRPCAction(this, OnSkillThreeExecuted, ref _skillThreeRemoteCall, ExecuteFlags.ExecuteOnPrediction | ExecuteFlags.SendToOther);
     }
+    
 
     public void OnSwitchCameraMode(CameraMode mode)
     {
-        _currentCameraMode = mode;
+        _currentCameraMode.Value = mode;
         switch (_currentCameraMode.Value)
         {
             case CameraMode.RTS:
