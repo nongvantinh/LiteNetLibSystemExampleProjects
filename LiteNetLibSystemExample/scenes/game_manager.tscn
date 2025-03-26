@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://ypl4ga5uinjc"]
+[gd_scene load_steps=10 format=3 uid="uid://ypl4ga5uinjc"]
 
-[ext_resource type="Script" path="res://core/GameManager.cs" id="1_l4r81"]
+[ext_resource type="Script" uid="uid://c1s1agxbxsapy" path="res://core/GameManager.cs" id="1_l4r81"]
 [ext_resource type="PackedScene" uid="uid://dk6hs4bmcfkri" path="res://scenes/cameras/rts_camera.tscn" id="3_5cl1j"]
 [ext_resource type="PackedScene" uid="uid://clucg5dhxrxrp" path="res://scenes/gui/head_up_display.tscn" id="3_80hvr"]
 [ext_resource type="PackedScene" uid="uid://31bjknd07pd4" path="res://scenes/character.tscn" id="3_sdsqm"]
-[ext_resource type="Script" path="res://core/SceneManager.cs" id="4_3mcca"]
+[ext_resource type="Script" uid="uid://dg6xevodg5qvl" path="res://core/SceneManager.cs" id="4_3mcca"]
 [ext_resource type="PackedScene" uid="uid://blmr6y0xhw81n" path="res://scenes/cameras/first_person_view_camera.tscn" id="4_5kn8t"]
 [ext_resource type="PackedScene" uid="uid://qlid1p5ukroy" path="res://scenes/cameras/third_person_view_camera.tscn" id="5_421aa"]
+[ext_resource type="Texture2D" uid="uid://dvj2m6y0qnowo" path="res://sprites/Settings.png" id="8_jdad8"]
+[ext_resource type="Texture2D" uid="uid://dxww2nqm6qmuo" path="res://sprites/switch_camera1.png" id="9_k4jhu"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_l4r81")
@@ -20,5 +22,12 @@ _thirdPersonCameraScene = ExtResource("5_421aa")
 CharacterScene = ExtResource("3_sdsqm")
 
 [node name="HeadUpDisplay" parent="." instance=ExtResource("3_80hvr")]
+
+[node name="OpenSettings" parent="HeadUpDisplay/Border/AspectRatioContainer/GUIManager/MobileLayout/VBoxContainer/Top/Right" index="0"]
+texture_normal = ExtResource("8_jdad8")
+stretch_mode = 2
+
+[node name="SwitchCameraMode" parent="HeadUpDisplay/Border/AspectRatioContainer/GUIManager/MobileLayout/FreeObjects" index="5"]
+texture_normal = ExtResource("9_k4jhu")
 
 [editable path="HeadUpDisplay"]

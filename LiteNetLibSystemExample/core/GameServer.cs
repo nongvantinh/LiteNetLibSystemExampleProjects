@@ -82,7 +82,7 @@ public partial class GameServer : Node, INetEventListener
 
     void INetEventListener.OnPeerConnected(NetPeer peer)
     {
-        Debug.Log("[S] Player connected: " + peer.EndPoint);
+        Debug.Log("[S] Player connected: " + peer.Address);
     }
 
     void INetEventListener.OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)

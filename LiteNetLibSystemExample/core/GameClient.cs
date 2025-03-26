@@ -81,15 +81,15 @@ public partial class GameClient : Node, INetEventListener
         {
             _entityManager.Update();
             GUIManager.Instance.DebugText.Text = $@"
-C_ServerTick: {_entityManager.ServerTick}
-C_Tick: {_entityManager.Tick}
-C_LPRCS: {_entityManager.LastProcessedTick}
-C_StoredCommands: {_entityManager.StoredCommands}
-C_Entities: {_entityManager.EntitiesCount}
-C_LerpBuffer: {_entityManager.LerpBufferCount}
-Ping: {_ping}
-IN: {BytesInPerSecond / 1000f} KB/s({PacketsInPerSecond})
-OUT: {BytesOutPerSecond / 1000f} KB/s({PacketsOutPerSecond})";
+            C_ServerTick: {_entityManager.ServerTick}
+            C_Tick: {_entityManager.Tick}
+            C_LPRCS: {_entityManager.LastProcessedTick}
+            C_StoredCommands: {_entityManager.StoredCommands}
+            C_Entities: {_entityManager.EntitiesCount}
+            C_LerpBuffer: {_entityManager.LerpBufferCount}
+            Ping: {_ping}
+            IN: {BytesInPerSecond / 1000f} KB/s({PacketsInPerSecond})
+            OUT: {BytesOutPerSecond / 1000f} KB/s({PacketsOutPerSecond})";
         }
         else
         {
@@ -112,7 +112,7 @@ OUT: {BytesOutPerSecond / 1000f} KB/s({PacketsOutPerSecond})";
 
     void INetEventListener.OnPeerConnected(NetPeer peer)
     {
-        Debug.Log("[C] Connected to server: " + peer.EndPoint);
+        Debug.Log("[C] Connected to server: " + peer.Address);
         _server = peer;
 
         SendPacket(new JoinPacket { UserName = "Nông Văn Tình" }, DeliveryMethod.ReliableOrdered);

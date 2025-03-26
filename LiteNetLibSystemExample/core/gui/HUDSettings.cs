@@ -140,7 +140,7 @@ public partial class HUDSettings : Control
             _maxAspectRatioButton.Select(maxAspectRatio);
             _guiMargin = guiMargin;
         }
-
+        
         _windowBaseSizeButton.Select(_supportedWindowBaseSize.FindIndex((window) => { return window == _baseWindowSize; }));
         _guiMarginSlider.Value = _guiMargin;
         _guiMarginValue.Text = _guiMargin.ToString();
